@@ -1056,11 +1056,13 @@ impl<'a, S: HyperliquidSigner> OrderBuilder<'a, S> {
         size: impl ToString,
         tpsl: &str,
     ) -> Self {
+        let trigger_px_str = trigger_px.to_string();
         self.buy()
+            .limit_px(&trigger_px_str) // limit_px must equal trigger_px for trigger orders
             .size(size)
             .order_type(OrderType::Trigger(Trigger {
-                trigger_px: trigger_px.to_string(),
                 is_market: true,
+                trigger_px: trigger_px_str,
                 tpsl: tpsl.to_string(),
             }))
     }
@@ -1071,11 +1073,13 @@ impl<'a, S: HyperliquidSigner> OrderBuilder<'a, S> {
         size: impl ToString,
         tpsl: &str,
     ) -> Self {
+        let trigger_px_str = trigger_px.to_string();
         self.sell()
+            .limit_px(&trigger_px_str) // limit_px must equal trigger_px for trigger orders
             .size(size)
             .order_type(OrderType::Trigger(Trigger {
-                trigger_px: trigger_px.to_string(),
                 is_market: true,
+                trigger_px: trigger_px_str,
                 tpsl: tpsl.to_string(),
             }))
     }
